@@ -1,0 +1,56 @@
+{
+    "messages": {
+        "error_messages": {
+            "1": "Yuzu n'est pas detecté.",
+            "2": "Veuillez séléctionner un jeu.",
+            "3": "Des cheats sont déjà installés pour ce jeu.",
+            "4": "Veuillez séléctionner un fichier.",
+            "5": "Veuillez séléctionner un cheat à supprimer.\nPour supprimer un cheat, cliquez dessus puis cliquez sur le bouton.",
+            "6": "Le jeu séléctionné n'a aucun cheat d'installé. Veuillez télécharger des cheats avant de pouvoir les gérer.",
+            "7": "Le dossier de Yuzu est invalide."
+        },
+        "info_messages": {
+            "1": "Les cheats ont bien été installés dans le répertoire du jeu.",
+            "2": "Les cheats installés sur le jeu séléctionné ont bien été supprimés.",
+            "3": "Le dossier de Yuzu a bien été modifié."
+        },
+        "warning_messages": {
+            "1": "Ce fichier de cheats est vide et ne contient aucune clé.",
+            "2": "Un ou plusieurs jeux installés sur votre Yuzu sont incompatible avec le logiciel."
+        }
+    },
+    "buttons": {
+        "1": "Télécharger les cheats",
+        "2": "Ouvrir le gestionnaire de cheats",
+        "3": "Ouvrir l'emplacement du jeu",
+        "4": "Appliquer",
+        "5": "Supprimer tout les cheats",
+        "6": "Supprimer le cheat séléctionné"
+    },
+    "head_menu": {
+        "file_menu": {
+            "1": "Télécharger les cheats",
+            "2":"Ouvrir le gestionnaire de cheats",
+            "3": "Paramètres",
+            "4": "Quitter le logiciel"
+        },
+        "settings_menu": {
+            "1": "Notification de nouvelles versions",
+            "2": "Avertissement de jeux incompatibles",
+            "3": "Modifier l'emplacement du dossier Yuzu"
+        },
+        "help_menu": {
+            "1": "Contact par mail",
+            "2": "Serveur Discord",
+            "3": "Wiki officiel"
+        }
+    },
+    "texts": {
+        "1": "Séléctionnez un jeu",
+        "2": "Cheats pour",
+        "3": "Nom de la clé",
+        "4": "Valeur de la clé",
+        "5": "Fichier à modifier"
+    }
+
+}
