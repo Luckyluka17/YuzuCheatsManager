@@ -7,7 +7,7 @@ Une fois qu'il est téléchargé, utilisez un outil pour **l'extraire** (WinRar,
 Si vous avez des soucis, essayez d'ouvrir l'application en temps qu'administrateur.
 
 ## Remerciements & crédits
-- [Dépôt Switch Cheats](https://github.com/ibnux/switch-cheat) (utilisés pour télécharger les cheats) par **ibnux**
+- [Dépôt Switch Cheats](https://github.com/ibnux/switch-cheat) (utilisé pour télécharger les cheats) par **ibnux**
 
 ## Soutenir le projet
 Vous aimez ce projet ? N'hésitez pas à faire un petit don pour aider son créateur !
