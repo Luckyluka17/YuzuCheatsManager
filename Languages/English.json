@@ -1,0 +1,64 @@
+{
+    "messages": {
+        "error_messages": {
+            "1": "Yuzu is not detected.",
+            "2": "Please select a game.",
+            "3": "Cheats are already installed for this game.",
+            "4": "Please select a file.",
+            "5": "Please select a cheat to remove. \nTo remove a cheat, click on it and then click on the button",
+            "6": "The selected game has no cheats installed. Please download cheats before you can manage them.",
+            "7": "Yuzu's folder is invalid."
+        },
+        "info_messages": {
+            "1": "The cheats have been installed in the game directory correctly.",
+            "2": "The cheats installed on the selected game have been removed.",
+            "3": "Yuzu's folder has been modified.",
+            "4": "The language of the software will be changed at the next startup."
+        },
+        "warning_messages": {
+            "1": "This cheats file is empty and contains no keys.",
+            "2": "One or more games installed on your Yuzu are incompatible with the software."
+        }
+    },
+    "buttons": {
+        "1": "Download cheats",
+        "2": "Open the cheats manager",
+        "3": "Open game location",
+        "4": "Apply",
+        "5": "Delete all cheats",
+        "6": "Delete the selected cheat"
+    },
+    "head_menu": {
+        "file_menu": {
+            "title": "File",
+            "1": "Download cheats",
+            "2": "Open cheats manager",
+            "3": "Settings",
+            "4": "Quit the software"
+        },
+        "settings_menu": {
+            "title": "Settings",
+            "1": "Notification of new versions",
+            "2": "Incompatible games warning",
+            "3": "Change location of Yuzu folder"
+        },
+        "help_menu": {
+            "title": "Help",
+            "1": "Contact by mail",
+            "2": "Discord server",
+            "3": "Official Wiki"
+        },
+        "language_menu": {
+            "title": "Software language",
+            "1": "French",
+            "2": "English"
+        }
+    },
+    "texts": {
+        "1": "Select a game",
+        "2": "Cheats for",
+        "3": "Key name",
+        "4": "Key value",
+        "5": "File to modify"
+    }
+}

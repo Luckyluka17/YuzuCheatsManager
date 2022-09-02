@@ -12,7 +12,8 @@
         "info_messages": {
             "1": "Les cheats ont bien été installés dans le répertoire du jeu.",
             "2": "Les cheats installés sur le jeu séléctionné ont bien été supprimés.",
-            "3": "Le dossier de Yuzu a bien été modifié."
+            "3": "Le dossier de Yuzu a bien été modifié.",
+            "4": "La langue du logiciel sera modifiée au prochain démarrage."
         },
         "warning_messages": {
             "1": "Ce fichier de cheats est vide et ne contient aucune clé.",
@@ -29,20 +30,28 @@
     },
     "head_menu": {
         "file_menu": {
+            "title": "Fichier",
             "1": "Télécharger les cheats",
             "2":"Ouvrir le gestionnaire de cheats",
             "3": "Paramètres",
             "4": "Quitter le logiciel"
         },
         "settings_menu": {
+            "title": "Paramètres",
             "1": "Notification de nouvelles versions",
             "2": "Avertissement de jeux incompatibles",
             "3": "Modifier l'emplacement du dossier Yuzu"
         },
         "help_menu": {
+            "title": "Aide",
             "1": "Contact par mail",
             "2": "Serveur Discord",
             "3": "Wiki officiel"
+        },
+        "language_menu": {
+            "title": "Langue du logiciel",
+            "1": "Français",
+            "2": "English"
         }
     },
     "texts": {
@@ -52,5 +61,4 @@
         "4": "Valeur de la clé",
         "5": "Fichier à modifier"
     }
-
 }
