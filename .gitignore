@@ -1,3 +1,11 @@
 src/Languages
 src/icon.ico
 src/settings.json
+settings.json
+icon.ico
+src/__pycache__/app.cpython-310.pyc
+src/build.bat
+build/
+dist/
+output/
+*.spec
