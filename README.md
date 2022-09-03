@@ -8,6 +8,7 @@ Si vous avez des soucis, essayez d'ouvrir l'application en temps qu'administrate
 
 ## Remerciements & crédits
 - [Dépôt Switch Cheats](https://github.com/ibnux/switch-cheat) (utilisé pour télécharger les cheats) par **ibnux**
+- [Polo228](https://www.polo228.tk) (a aidé dans le développement du site)
 
 ## Soutenir le projet
 Vous aimez ce projet ? N'hésitez pas à faire un petit don pour aider son créateur !
