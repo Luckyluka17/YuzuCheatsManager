@@ -1,0 +1,65 @@
+body {
+    background-color: #545454;
+}
+
+#header {
+    color: white;
+    background-color: #14364b;
+}
+
+section {
+    background-color: #545454;
+    color: white;
+}
+
+i {
+    vertical-align: middle;
+}
+
+.button-link {
+    text-decoration: none;
+}
+
+#fonctionnalites {
+    background-color: #333333;
+}
+
+.cards-container {
+    color: white;
+    justify-content: center;
+    display: flex;
+}
+
+#fonc-cards-icons {
+    font-size: 60px;
+}
+
+.fonc-card {
+    margin-right: 3px;
+}
+
+.screenshot {
+    width: 20%;
+    margin-right: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+.screenshot:hover {
+    transform: scale(1.8);
+    transition: all 0.3s ease-in-out;
+}
+
+#footer {
+    background-color: #333333;
+}
+
+.maj-cards {
+    text-align: left;
+    border-radius: 5px;
+    background-color: #333333;
+    border: 10px solid #333333;
+    width: 400px;
+    height: 300px;
+}
