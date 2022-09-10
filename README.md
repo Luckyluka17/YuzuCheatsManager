@@ -1,7 +1,7 @@
 <h1><img src="img/banner.png"></h1>
 Yuzu Cheats Manager vous permet d'installer, de gérer et de supprimer des cheats de manière automatique sur Yuzu. 
 
-⚠️ Ce logiciel est expérimental, il n'est pas impossible que vous trouviez des bugs. Si c'est le cas, merci de contacter son créateur par le biais de [Discord](https://discord.gg/YPm459VZsH).
+⚠️ Ce logiciel est expérimental, il n'est pas impossible que vous trouviez des bugs. Si c'est le cas, merci de contacter son créateur par le biais de [Discord](https://discord.gg/KvjkS3P3Gh).
 
 ## Installation
 Pour l'installer, vous aurez besoin de télécharger le fichier **YuzuCheatsManager.zip** dans le page [releases](https://github.com/Luckyluka17/YuzuCheatsManager/releases).
