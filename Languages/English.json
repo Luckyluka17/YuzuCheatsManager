@@ -17,7 +17,8 @@
         },
         "warning_messages": {
             "1": "This cheats file is empty and contains no keys.",
-            "2": "One or more games installed on your Yuzu are incompatible with the software."
+            "2": "One or more games installed on your Yuzu are incompatible with the software.",
+            "3": "A new version of the software is available, we recommend that you install it (https://yuzucheatsmanager.tk/downloads) to benefit from the latest features."
         }
     },
     "buttons": {
