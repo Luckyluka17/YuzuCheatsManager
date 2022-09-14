@@ -14,6 +14,11 @@ import webbrowser as web
 
 window = tk.Tk()
 
+version = 1.1
+
+
+
+
 games_list = {}
 game_name = ""
 default_settings = {
@@ -72,18 +77,24 @@ except:
     language = settings["language"]
 
 # Récupérer la langue
-with codecs.open(f"Languages\\{language}.json", "r", "utf-8") as f:
-    data_language = json.loads(f.read())
+with requests.get(f"https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/Languages/{language}.json") as r:
+    data_language = json.loads(r.text)
     f.close()
 
 if language == "Français":
     toggle_language.set(1)
 elif language == "English":
     toggle_language.set(2)
-    
-    
 
 
+# Vérification de la version installée et comparaison avec la dernière version
+with requests.get("https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/appinfo.json") as r:
+    data_app = json.loads(r.text)
+
+if data_app["latest-version"] > version:
+    showwarning("Nouvelle version", data_language["messages"]["warning_messages"]["3"])
+    
+# 
 if os.path.exists(f"{settings['yuzu_folder']}\\load\\"):
     games = os.listdir(f"{settings['yuzu_folder']}load\\")
     for game in games:
@@ -99,6 +110,7 @@ if os.path.exists(f"{settings['yuzu_folder']}\\load\\"):
             games[games.index(game)] = str(game_name).replace("-", " ").replace(".txt", "").replace("™", "").upper()
 else:
     showerror("Erreur", data_language["messages"]["error_messages"]["1"])
+    exit()
 
 def download_cheats():
     if cb1.get() == "":
@@ -320,6 +332,11 @@ language_menu.add_radiobutton(label="English", variable=toggle_language, command
 help_menu.add_command(label=data_language["head_menu"]["help_menu"]["1"], command=lambda: web.open("mailto:contact@luckyluka17.cf"))
 help_menu.add_command(label=data_language["head_menu"]["help_menu"]["2"], command=lambda: web.open("https://discord.gg/YPm459VZsH"))
 help_menu.add_command(label=data_language["head_menu"]["help_menu"]["3"], command=lambda: web.open("https://github.com/Luckyluka17/YuzuCheatsManager/wiki"))
+
+# Supression des espaces dans la liste games
+for i in range(len(games)):
+    if '' in games:
+        games.remove('')
 
 
 ttk.Label(
