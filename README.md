@@ -1,7 +1,14 @@
-<h1><img src="img/banner.png"></h1>
+<a href="https://wwwuzucheatsmanager.tk" target="_blank"><h1><img src="img/banner.png"></h1></a>
+<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/Luckyluka17/YuzuCheatsManager">
+<img alt="GitHub repo file count (custom path)" src="https://img.shields.io/github/directory-file-count/Luckyluka17/YuzuCheatsManager/Languages?label=available %20languages">
+<img alt="GitHub all releases" src="https://img.shields.io/github/downloads/Luckyluka17/YuzuCheatsManager/total">
+<img alt="Discord" src="https://img.shields.io/discord/1017472968395329547?label=discord">
+<br>
+<img src="img/uk_flag.png" width="2%"><a href="https://github.com/Luckyluka17/YuzuCheatsManager/blob/main/README_EN.md">  English version</a>
+
 Yuzu Cheats Manager vous permet d'installer, de gérer et de supprimer des cheats de manière automatique sur Yuzu. 
 
-⚠️ Ce logiciel est expérimental, il n'est pas impossible que vous trouviez des bugs. Si c'est le cas, merci de contacter son créateur par le biais de [Discord](https://discord.gg/KvjkS3P3Gh).
+**⚠️ Ce logiciel est expérimental, il n'est pas impossible que vous trouviez des bugs. Si c'est le cas, merci de contacter son créateur par le biais de [Discord](https://discord.gg/KvjkS3P3Gh).**
 
 ## Installation
 Pour l'installer, vous aurez besoin de télécharger le fichier **YuzuCheatsManager.zip** dans le page [releases](https://github.com/Luckyluka17/YuzuCheatsManager/releases).
@@ -10,7 +17,8 @@ Si vous avez des soucis, essayez d'ouvrir l'application en temps qu'administrate
 
 ## Remerciements & crédits
 - [Dépôt Switch Cheats](https://github.com/ibnux/switch-cheat) (utilisé pour télécharger les cheats) par **ibnux**
-- [Polo228](https://www.polo228.tk) (a aidé dans le développement du site)
+- [Polo228](https://www.polo228.tk) (a contribué dans le développement du site)
+- [Icônes par Freepik](https://www.freepik.com/)
 
 ## Soutenir le projet
 Vous aimez ce projet ? N'hésitez pas à faire un petit don pour aider son créateur !
