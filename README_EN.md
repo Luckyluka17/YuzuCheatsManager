@@ -5,7 +5,7 @@
 <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/Luckyluka17/YuzuCheatsManager/total">
 <img alt="Discord" src="https://img.shields.io/discord/1017472968395329547?label=discord">
 <br><br>
-<img src="img/fr_flag.png" width="2%"><a href="https://github.com/Luckyluka17/YuzuCheatsManager/blob/main/README.md"> Version française</a>
+<img src="img/fr_flag.png" width="1%"><a href="https://github.com/Luckyluka17/YuzuCheatsManager/blob/main/README.md"> Version française</a>
 </div>
 <br>
 
