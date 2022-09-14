@@ -1,10 +1,13 @@
 <a href="https://wwwuzucheatsmanager.tk" target="_blank"><h1><img src="img/banner.png"></h1></a>
+<div align="left">
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/Luckyluka17/YuzuCheatsManager">
 <img alt="GitHub repo file count (custom path)" src="https://img.shields.io/github/directory-file-count/Luckyluka17/YuzuCheatsManager/Languages?label=available %20languages">
 <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/Luckyluka17/YuzuCheatsManager/total">
 <img alt="Discord" src="https://img.shields.io/discord/1017472968395329547?label=discord">
+<br><br>
+<img src="img/uk_flag.png" width="1%"><a href="https://github.com/Luckyluka17/YuzuCheatsManager/blob/main/README_EN.md">  English version</a>
+</div>
 <br>
-<img src="img/uk_flag.png" width="2%"><a href="https://github.com/Luckyluka17/YuzuCheatsManager/blob/main/README_EN.md">  English version</a>
 
 Yuzu Cheats Manager vous permet d'installer, de gérer et de supprimer des cheats de manière automatique sur Yuzu. 
 
