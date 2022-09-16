@@ -53,6 +53,9 @@
             "title": "Software language",
             "1": "French",
             "2": "English"
+        },
+        "plugins_menu": {
+            "title": "Plugins"
         }
     },
     "texts": {

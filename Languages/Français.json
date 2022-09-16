@@ -53,6 +53,9 @@
             "title": "Langue du logiciel",
             "1": "Français",
             "2": "English"
+        },
+        "plugins_menu": {
+            "title": "Plugins"
         }
     },
     "texts": {
