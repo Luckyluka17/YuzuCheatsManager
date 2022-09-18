@@ -55,7 +55,8 @@
             "2": "English"
         },
         "plugins_menu": {
-            "title": "Plugins"
+            "title": "Plugins",
+            "1": "Télécharger des plugins"
         }
     },
     "texts": {
