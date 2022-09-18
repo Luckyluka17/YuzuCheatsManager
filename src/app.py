@@ -87,6 +87,29 @@ elif language == "English":
     toggle_language.set(2)
 
 
+# Scanner les plugins
+if not os.path.exists("Plugins"):
+    os.mkdir("Plugins")
+
+plugins = {}
+
+for plugin in os.listdir("Plugins"):
+    if os.path.exists(f"Plugins\\{plugin}\\plugin.json"):
+        try:
+            with codecs.open(f"Plugins\\{plugin}\\plugin.json") as f:
+                plugin_data = json.loads(f.read())
+                f.close()
+        
+            plugins[plugin_data['name']] = {
+                "name": plugin_data['name'],
+                "version": plugin_data['version'],
+                "developper": plugin_data['developper']
+            }
+
+            del plugin_data
+        except:
+            print("Erreur plugin invalide")
+
 # Vérification de la version installée et comparaison avec la dernière version
 with requests.get("https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/appinfo.json") as r:
     data_app = json.loads(r.text)
@@ -182,6 +205,13 @@ def open_cheat_manager():
                 
         print(data)
 
+    def edit_file():
+        if "PyText Editor (FR)" in plugins.keys():
+            file2edit = f'{settings["yuzu_folder"]}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats\\{cb2.get()}'
+            exec(codecs.open("Plugins\\PyText Editor\\plugin.py", "r", "utf-8").read().replace("''", file2edit.replace("\\", "\\\\")))
+        else:
+            os.system(f'notepad "{settings["yuzu_folder"]}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats\\{cb2.get()}"')
+
     def del_selected_cheat():
         try:
             curItem = tree.focus()
@@ -267,7 +297,7 @@ def open_cheat_manager():
     bouton6 = tk.Button(
         window1,
         text="✒️",
-        command=Thread(target=lambda:(os.system(f'notepad "{settings["yuzu_folder"]}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats\\{cb2.get()}"'))).run,
+        command=edit_file,
         cursor="hand2"
     )
     bouton6.place(x=560, y=261)
@@ -311,8 +341,10 @@ file_menu = tk.Menu(tearoff=0)
 help_menu = tk.Menu(tearoff=0)
 settings_menu = tk.Menu(tearoff=0)
 language_menu = tk.Menu(tearoff=0)
+plugins_menu = tk.Menu(tearoff=0)
 # Menu principal
 menubar.add_cascade(label=data_language["head_menu"]["file_menu"]["title"], menu=file_menu)
+menubar.add_cascade(label=data_language["head_menu"]["plugins_menu"]["title"], menu=plugins_menu)
 menubar.add_cascade(label=data_language["head_menu"]["help_menu"]["title"], menu=help_menu)
 # Menu Fichier
 file_menu.add_command(label=data_language["head_menu"]["file_menu"]["1"], command=download_cheats)
@@ -328,9 +360,14 @@ settings_menu.add_cascade(label=data_language["head_menu"]["language_menu"]["tit
 # Menu de séléction des langues
 language_menu.add_radiobutton(label="Français", variable=toggle_language, command=apply_settings, value=1)
 language_menu.add_radiobutton(label="English", variable=toggle_language, command=apply_settings, value=2)
+# Menu plugins
+for plugin in plugins.keys():
+    plugins_menu.add_command(label=f"{plugin} | {plugins[plugin]['version']} | {plugins[plugin]['developper']}")
+plugins_menu.add_separator()
+plugins_menu.add_command(label=data_language["head_menu"]["plugins_menu"]["1"], command=lambda: web.open("https://www.yuzucheatsmanager.tk/plugins.html#"))
 # Menu Aide
 help_menu.add_command(label=data_language["head_menu"]["help_menu"]["1"], command=lambda: web.open("mailto:contact@luckyluka17.cf"))
-help_menu.add_command(label=data_language["head_menu"]["help_menu"]["2"], command=lambda: web.open("https://discord.gg/YPm459VZsH"))
+help_menu.add_command(label=data_language["head_menu"]["help_menu"]["2"], command=lambda: web.open("https://discord.gg/KvjkS3P3Gh"))
 help_menu.add_command(label=data_language["head_menu"]["help_menu"]["3"], command=lambda: web.open("https://github.com/Luckyluka17/YuzuCheatsManager/wiki"))
 
 # Supression des espaces dans la liste games
