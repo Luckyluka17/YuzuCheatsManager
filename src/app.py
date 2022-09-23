@@ -1,23 +1,24 @@
-from tkinter import ttk
-import tkinter as tk
-import wget
-import requests
-from bs4 import BeautifulSoup
-from getpass import getuser
-import os
-from tkinter.messagebox import showinfo, showerror, showwarning
-from threading import Thread
-import sys
-import json
 import codecs
+import json
+import os
+import sys
+import time
+import tkinter as tk
 import webbrowser as web
+from getpass import getuser
+from threading import Thread
+from tkinter import ttk
+from tkinter.filedialog import askdirectory
+from tkinter.messagebox import showerror, showinfo, showwarning
+
+import requests
+import wget
+from bs4 import BeautifulSoup
+from pypresence import Presence
 
 window = tk.Tk()
 
-version = 1.2
-
-
-
+version = 1.3
 
 games_list = {}
 game_name = ""
@@ -25,12 +26,15 @@ default_settings = {
     "verify_updates": True,
     "notify_incompatible_games": True,
     "yuzu_folder": f"C:\\Users\\{getuser()}\\AppData\\Roaming\\yuzu\\",
-    "language": "Français"
+    "language": "Français",
+    "discord_rpc": True,
+    "auth_key": ""
 }
 
 verify_updates = tk.BooleanVar()
 notify_incompatible_games = tk.BooleanVar()
 toggle_language = tk.IntVar()
+discord_rpc = tk.BooleanVar()
 
 # Vérification du fichier de paramètres
 if os.path.exists("settings.json"):
@@ -62,6 +66,7 @@ try:
     notify_incompatible_games.set(settings["notify_incompatible_games"])
     yuzu_folder = settings["yuzu_folder"]
     language = settings["language"]
+    discord_rpc.set(settings["discord_rpc"])
 except:
     with codecs.open("settings.json", "w", "utf-8") as f:
         json.dump(default_settings, f)
@@ -75,6 +80,7 @@ except:
     notify_incompatible_games.set(settings["notify_incompatible_games"])
     yuzu_folder = settings["yuzu_folder"]
     language = settings["language"]
+    discord_rpc.set(settings["discord_rpc"])
 
 # Récupérer la langue
 with requests.get(f"https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/Languages/{language}.json") as r:
@@ -103,19 +109,50 @@ for plugin in os.listdir("Plugins"):
             plugins[plugin_data['name']] = {
                 "name": plugin_data['name'],
                 "version": plugin_data['version'],
-                "developper": plugin_data['developper']
+                "developper": plugin_data['developper'],
+                "category": plugin_data['category']
             }
 
             del plugin_data
         except:
             print("Erreur plugin invalide")
 
+
+
 # Vérification de la version installée et comparaison avec la dernière version
 with requests.get("https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/appinfo.json") as r:
     data_app = json.loads(r.text)
 
-if data_app["latest-version"] > version:
+if data_app["latest-version"] > version and verify_updates.get() == True:
+    window.withdraw()
     showwarning("Nouvelle version", data_language["messages"]["warning_messages"]["3"])
+    window.deiconify()
+
+# Démarrer la RPC Discord
+if discord_rpc.get() == True:
+    try:
+        RPC = Presence(1022537407448490125)
+        RPC.connect()
+        if data_app["latest-version"] > version:
+            RPC.update(
+                details=f"Version {version} - Ancienne version",
+                state=f"Plugins installés : {len(plugins)}",
+                large_image="logo",
+                large_text="Yuzu Cheats Manager",
+                buttons=[{"label": "Télécharger le logiciel", "url": "https://yuzucheatsmanager.tk/downloads"}],
+                start=int(time.time())
+            )
+        else:
+            RPC.update(
+                details=f"Version {version} - À jour",
+                state=f"Plugins installés : {len(plugins)}",
+                large_image="logo",
+                large_text="Yuzu Cheats Manager",
+                buttons=[{"label": "Télécharger le logiciel", "url": "https://yuzucheatsmanager.tk/downloads"}],
+                start=int(time.time())
+            )
+    except:
+        print("Discord n'est pas detecté")
     
 # 
 if os.path.exists(f"{settings['yuzu_folder']}\\load\\"):
@@ -169,6 +206,8 @@ def apply_settings():
             "notify_incompatible_games": notify_incompatible_games.get(),
             "yuzu_folder": yuzu_folder,
             "language": language,
+            "discord_rpc": discord_rpc.get(),
+            "auth_key": ""
         }
         json.dump(settings, f)
 
@@ -193,15 +232,28 @@ def open_cheat_manager():
 
         data = data.split("[")
         print(data)
-        if data == ['\n']:
+        if data == ['\n'] or data == [] or data == ['']:
             showwarning("Attention", data_language["messages"]["warning_messages"]["1"])
         else:
-            data.remove('')
+            try:
+                data.remove('')
+            except:
+                pass
+        
+        if '\n' in data:
+            data.remove('\n')
 
-        for d in data:
-            d_temp = d.split("]")
-            tree.insert(parent='', text='', index="end", values=(d_temp[0], d_temp[1].replace("\n", "|").replace("||", "|")))
-            del d_temp
+        try:
+            for d in data:
+                d_temp = d.split("]")
+                tree.insert(parent='', text='', index="end", values=(d_temp[0], d_temp[1].replace("\n", "|").replace("||", "|")))
+                del d_temp
+        except:
+            data.pop(0)
+            for d in data:
+                d_temp = d.split("]")
+                tree.insert(parent='', text='', index="end", values=(d_temp[0], d_temp[1].replace("\n", "|").replace("||", "|")))
+                del d_temp
                 
         print(data)
 
@@ -322,7 +374,6 @@ def open_cheat_manager1():
         showerror("Erreur", data_language["messages"]["error_messages"]["2"])
 
 def change_yuzu_folder():
-    from tkinter.filedialog import askdirectory
     yuzu_folder = askdirectory(title="Séléctionnez le dossier de Yuzu").replace("/", "\\")
     if os.path.exists(f"{yuzu_folder}\\nand") and os.path.exists(f"{yuzu_folder}\\load"):
         apply_settings()
@@ -357,6 +408,7 @@ settings_menu.add_checkbutton(label=data_language["head_menu"]["settings_menu"][
 settings_menu.add_checkbutton(label=data_language["head_menu"]["settings_menu"]["2"], variable=notify_incompatible_games, command=apply_settings)
 settings_menu.add_command(label=data_language["head_menu"]["settings_menu"]["3"], command=change_yuzu_folder)
 settings_menu.add_cascade(label=data_language["head_menu"]["language_menu"]["title"], menu=language_menu)
+settings_menu.add_checkbutton(label=data_language["head_menu"]["settings_menu"]["4"], variable=discord_rpc, command=apply_settings)
 # Menu de séléction des langues
 language_menu.add_radiobutton(label="Français", variable=toggle_language, command=apply_settings, value=1)
 language_menu.add_radiobutton(label="English", variable=toggle_language, command=apply_settings, value=2)
