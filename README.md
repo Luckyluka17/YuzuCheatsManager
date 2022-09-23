@@ -1,4 +1,4 @@
-<a href="https://wwwuzucheatsmanager.tk" target="_blank"><h1><img src="img/banner.png"></h1></a>
+<a href="https://www.yuzucheatsmanager.tk" target="_blank"><h1><img src="img/banner.png"></h1></a>
 <div align="left">
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/Luckyluka17/YuzuCheatsManager">
 <img alt="GitHub repo file count (custom path)" src="https://img.shields.io/github/directory-file-count/Luckyluka17/YuzuCheatsManager/Languages?label=available %20languages">
