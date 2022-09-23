@@ -41,7 +41,8 @@
             "title": "Paramètres",
             "1": "Notification de nouvelles versions",
             "2": "Avertissement de jeux incompatibles",
-            "3": "Modifier l'emplacement du dossier Yuzu"
+            "3": "Modifier l'emplacement du dossier Yuzu",
+            "4": "Activer le status Discord"
         },
         "help_menu": {
             "title": "Aide",

@@ -41,7 +41,8 @@
             "title": "Settings",
             "1": "Notification of new versions",
             "2": "Incompatible games warning",
-            "3": "Change location of Yuzu folder"
+            "3": "Change location of Yuzu folder",
+            "4": "Enable Discord status"
         },
         "help_menu": {
             "title": "Help",
