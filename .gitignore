@@ -10,3 +10,4 @@ dist/
 output/
 *.spec
 src/discord_bot/
+.vscode/
