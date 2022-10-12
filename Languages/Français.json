@@ -18,7 +18,7 @@
         "warning_messages": {
             "1": "Ce fichier de cheats est vide et ne contient aucune clé.",
             "2": "Un ou plusieurs jeux installés sur votre Yuzu sont incompatible avec le logiciel.",
-            "3": "Une nouvelle version du logiciel est disponible, nous vous recommandons de l'installer (https://yuzucheatsmanager.tk/downloads) pour bénéficier des dernières fonctionnalités."
+            "3": "Une nouvelle version du logiciel est disponible, nous vous recommandons de l'installer pour bénéficier des dernières fonctionnalités."
         }
     },
     "buttons": {
@@ -35,7 +35,8 @@
             "1": "Télécharger les cheats",
             "2":"Ouvrir le gestionnaire de cheats",
             "3": "Paramètres",
-            "4": "Quitter le logiciel"
+            "4": "Quitter le logiciel",
+            "5": "Ouvrir l'emplacement du jeu"
         },
         "settings_menu": {
             "title": "Paramètres",
