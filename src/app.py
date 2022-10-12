@@ -1,4 +1,5 @@
 import codecs
+from email import message
 import json
 import os
 import sys
@@ -14,11 +15,12 @@ from tkinter.messagebox import showerror, showinfo, showwarning
 import requests
 import wget
 from bs4 import BeautifulSoup
+from plyer import notification
 from pypresence import Presence
 
 window = tk.Tk()
 
-version = 1.3
+version = 1.4
 
 games_list = {}
 game_name = ""
@@ -28,13 +30,16 @@ default_settings = {
     "yuzu_folder": f"C:\\Users\\{getuser()}\\AppData\\Roaming\\yuzu\\",
     "language": "Français",
     "discord_rpc": True,
-    "auth_key": ""
+    "auth_key": "",
+    "cheats_names": {},
 }
 
 verify_updates = tk.BooleanVar()
 notify_incompatible_games = tk.BooleanVar()
 toggle_language = tk.IntVar()
 discord_rpc = tk.BooleanVar()
+auth_key_preview = ""
+cheats_names = {}
 
 # Vérification du fichier de paramètres
 if os.path.exists("settings.json"):
@@ -59,7 +64,6 @@ else:
         settings = json.loads(f.read())
         f.close()
 
-
 # Application des paramètres récupérés
 try:
     verify_updates.set(settings["verify_updates"])
@@ -67,6 +71,7 @@ try:
     yuzu_folder = settings["yuzu_folder"]
     language = settings["language"]
     discord_rpc.set(settings["discord_rpc"])
+    cheats_names = settings['cheats_names']
 except:
     with codecs.open("settings.json", "w", "utf-8") as f:
         json.dump(default_settings, f)
@@ -81,6 +86,7 @@ except:
     yuzu_folder = settings["yuzu_folder"]
     language = settings["language"]
     discord_rpc.set(settings["discord_rpc"])
+    cheats_names = settings['cheats_names']
 
 # Récupérer la langue
 with requests.get(f"https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/Languages/{language}.json") as r:
@@ -91,7 +97,6 @@ if language == "Français":
     toggle_language.set(1)
 elif language == "English":
     toggle_language.set(2)
-
 
 # Scanner les plugins
 if not os.path.exists("Plugins"):
@@ -125,7 +130,13 @@ with requests.get("https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManag
 
 if data_app["latest-version"] > version and verify_updates.get() == True:
     window.withdraw()
-    showwarning("Nouvelle version", data_language["messages"]["warning_messages"]["3"])
+    notification.notify(
+        title="Nouvelle version",
+        message=data_language["messages"]["warning_messages"]["3"],
+        timeout=5,
+        app_icon="icon.ico",
+        app_name="Yuzu Cheats Manager"
+    )
     window.deiconify()
 
 # Démarrer la RPC Discord
@@ -154,7 +165,7 @@ if discord_rpc.get() == True:
     except:
         print("Discord n'est pas detecté")
     
-# 
+
 if os.path.exists(f"{settings['yuzu_folder']}\\load\\"):
     games = os.listdir(f"{settings['yuzu_folder']}load\\")
     for game in games:
@@ -186,7 +197,7 @@ def download_cheats():
                     for i in soup.find_all(class_="js-navigation-open Link--primary"):
                         file_name = i.text
                         wget.download(f"https://raw.githubusercontent.com/ibnux/switch-cheat/master/sxos/titles/{games_list[cb1.get()]}/cheats/{file_name}", f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats\\{file_name.upper()}")
-                    showinfo("Téléchargements de cheats", data_language["messages"]["info_messages"]["1"])
+                    showinfo("Téléchargements des cheats", data_language["messages"]["info_messages"]["1"])
                 else:
                     showerror("Erreur", data_language["messages"]["error_messages"]["3"])
 
@@ -207,9 +218,10 @@ def apply_settings():
             "yuzu_folder": yuzu_folder,
             "language": language,
             "discord_rpc": discord_rpc.get(),
-            "auth_key": ""
+            "auth_key": "",
+            "cheats_names": cheats_names,
         }
-        json.dump(settings, f)
+        json.dump(settings, f, indent=4)
 
 def open_cheat_manager():
     def del_all_cheats():
@@ -254,7 +266,14 @@ def open_cheat_manager():
                 d_temp = d.split("]")
                 tree.insert(parent='', text='', index="end", values=(d_temp[0], d_temp[1].replace("\n", "|").replace("||", "|")))
                 del d_temp
-                
+
+        if cb2.get() in cheats_names:
+            cheat_name.delete(0, tk.END)
+            cheat_name.insert(0, cheats_names[cb2.get()])
+        else:
+            cheat_name.delete(0, tk.END)
+
+
         print(data)
 
     def edit_file():
@@ -264,6 +283,14 @@ def open_cheat_manager():
         else:
             os.system(f'notepad "{settings["yuzu_folder"]}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats\\{cb2.get()}"')
 
+
+    def apply_name():
+        if cb2.get() != "" or cb2.get() != " ":
+            if cheat_name != "" or not cheat_name.startswith(" "):
+                cheats_names[cb2.get()] = cheat_name.get()
+        apply_settings()
+
+    
     def del_selected_cheat():
         try:
             curItem = tree.focus()
@@ -309,9 +336,13 @@ def open_cheat_manager():
 
     tree.pack()
 
+    # Récupérer tous les fichiers du répertoire de cheats
+    cheats_files = os.listdir(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats")
+
+
     cb2 = ttk.Combobox(
         window1,
-        values=os.listdir(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats"),
+        values=cheats_files,
         state="readonly",
     )
     cb2.place(x=385, y=265)
@@ -321,6 +352,27 @@ def open_cheat_manager():
         text=data_language["texts"]["5"],
         font=("Calibri", 12)
     ).place(x=265, y=263)
+
+    ttk.Label(
+        window1,
+        text="Nom du cheat",
+        font=("Calibri", 12)
+    ).place(x=265, y=292)
+
+    cheat_name = ttk.Entry(
+        window1,
+        width=23,
+    )
+    cheat_name.place(x=385, y=292)
+
+    bouton10 = tk.Button(
+        window1,
+        text="✅",
+        cursor="hand2",
+        font=("Calibri", 8),
+        command=apply_name
+    )
+    bouton10.place(x=530, y=291)
 
     bouton3 = ttk.Button(
         window1,
@@ -400,6 +452,7 @@ menubar.add_cascade(label=data_language["head_menu"]["help_menu"]["title"], menu
 # Menu Fichier
 file_menu.add_command(label=data_language["head_menu"]["file_menu"]["1"], command=download_cheats)
 file_menu.add_command(label=data_language["head_menu"]["file_menu"]["2"], command=open_cheat_manager1)
+file_menu.add_command(label=data_language["head_menu"]["file_menu"]["5"], command=lambda: os.startfile(f"{settings['yuzu_folder']}\\load\\{games_list[cb1.get()]}\\"))
 file_menu.add_cascade(label=data_language["head_menu"]["settings_menu"]["title"], menu=settings_menu)
 file_menu.add_separator()
 file_menu.add_command(label=data_language["head_menu"]["file_menu"]["4"], command=sys.exit)
@@ -458,14 +511,6 @@ bouton2 = ttk.Button(
     command=open_cheat_manager1
 )
 bouton2.place(x=180, y=75)
-
-bouton7 = ttk.Button(
-    window,
-    text=data_language["buttons"]["3"],
-    cursor="hand2",
-    command=lambda: os.startfile(f"{settings['yuzu_folder']}\\load\\{games_list[cb1.get()]}\\")
-)
-bouton7.place(x=120, y=110)
 
 # Vérifier si un jeu est invalide ou non
 if '' in games_list.keys() and settings['notify_incompatible_games'] == True:
