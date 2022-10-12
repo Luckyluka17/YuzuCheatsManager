@@ -11,3 +11,4 @@ output/
 *.spec
 src/discord_bot/
 .vscode/
+assets/
