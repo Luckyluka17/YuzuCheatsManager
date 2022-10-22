@@ -12,8 +12,9 @@ section {
     color: white;
 }
 
-i {
+ion-icon {
     vertical-align: middle;
+    margin-bottom: 2px;
 }
 
 .button-link {
@@ -30,7 +31,7 @@ i {
     display: flex;
 }
 
-#fonc-cards-icons {
+.fonc-cards-icons {
     font-size: 60px;
 }
 
