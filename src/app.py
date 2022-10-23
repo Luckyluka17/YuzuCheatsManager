@@ -1,5 +1,4 @@
 import codecs
-from email import message
 import json
 import os
 import sys
@@ -15,12 +14,9 @@ from tkinter.messagebox import showerror, showinfo, showwarning
 import requests
 import wget
 from bs4 import BeautifulSoup
-from plyer import notification
 from pypresence import Presence
 
 window = tk.Tk()
-
-version = 1.4
 
 games_list = {}
 game_name = ""
@@ -128,40 +124,19 @@ for plugin in os.listdir("Plugins"):
 with requests.get("https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/appinfo.json") as r:
     data_app = json.loads(r.text)
 
-if data_app["latest-version"] > version and verify_updates.get() == True:
-    window.withdraw()
-    notification.notify(
-        title="Nouvelle version",
-        message=data_language["messages"]["warning_messages"]["3"],
-        timeout=5,
-        app_icon="icon.ico",
-        app_name="Yuzu Cheats Manager"
-    )
-    window.deiconify()
-
 # Démarrer la RPC Discord
 if discord_rpc.get() == True:
     try:
         RPC = Presence(1022537407448490125)
         RPC.connect()
-        if data_app["latest-version"] > version:
-            RPC.update(
-                details=f"Version {version} - Ancienne version",
-                state=f"Plugins installés : {len(plugins)}",
-                large_image="logo",
-                large_text="Yuzu Cheats Manager",
-                buttons=[{"label": "Télécharger le logiciel", "url": "https://yuzucheatsmanager.tk/downloads"}],
-                start=int(time.time())
-            )
-        else:
-            RPC.update(
-                details=f"Version {version} - À jour",
-                state=f"Plugins installés : {len(plugins)}",
-                large_image="logo",
-                large_text="Yuzu Cheats Manager",
-                buttons=[{"label": "Télécharger le logiciel", "url": "https://yuzucheatsmanager.tk/downloads"}],
-                start=int(time.time())
-            )
+        RPC.update(
+            details=f"Installez des cheats sur Yuzu",
+            state=f"Plugins installés : {len(plugins)}",
+            large_image="logo",
+            large_text="Yuzu Cheats Manager",
+            buttons=[{"label": "Télécharger le logiciel", "url": "https://yuzucheatsmanager.tk/downloads"}],
+            start=int(time.time())
+        )
     except:
         print("Discord n'est pas detecté")
     
