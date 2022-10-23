@@ -1,7 +1,6 @@
 import os
-import codecs
 from getpass import getuser
 
-os.chdir(f"C:\\Users\\{getuser()}\\AppData\\Local\\Temp")
+os.chdir(f"C:\\Users\\{getuser()}\\AppData\\Local\\Temp\\YuzuCheatsManager")
 
-exec(codecs.open("app.py", "r", "utf-8").read())
+exec(open("app.py", "r", encoding="utf-8").read())
