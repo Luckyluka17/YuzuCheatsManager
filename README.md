@@ -3,6 +3,7 @@
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/Luckyluka17/YuzuCheatsManager">
 <img alt="GitHub repo file count (custom path)" src="https://img.shields.io/github/directory-file-count/Luckyluka17/YuzuCheatsManager/Languages?label=available %20languages">
 <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/Luckyluka17/YuzuCheatsManager/total">
+<a href="https://wakatime.com/badge/user/2396d49b-6ea5-49cb-a528-ba685f8c7ae9/project/ff53be95-3f16-4505-a187-20c4bbfc4732"><img src="https://wakatime.com/badge/user/2396d49b-6ea5-49cb-a528-ba685f8c7ae9/project/ff53be95-3f16-4505-a187-20c4bbfc4732.svg" alt="wakatime"></a>
 <img alt="Discord" src="https://img.shields.io/discord/1017472968395329547?label=discord">
 <br><br>
 <img src="img/uk_flag.png" width="1%"><a href="https://github.com/Luckyluka17/YuzuCheatsManager/blob/main/README_EN.md">  English version</a>
