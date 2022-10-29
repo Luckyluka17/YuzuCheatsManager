@@ -43,7 +43,8 @@
             "1": "Notification de nouvelles versions",
             "2": "Avertissement de jeux incompatibles",
             "3": "Modifier l'emplacement du dossier Yuzu",
-            "4": "Activer le status Discord"
+            "4": "Activer le status Discord",
+            "5": "Afficher le changelog à chaque démarrage"
         },
         "help_menu": {
             "title": "Aide",
