@@ -23,7 +23,7 @@ window = tk.Tk()
 start_time = time.time()
 
 # Version actuelle du logiciel
-version = 1.4
+version = 1.5
 
 # Téléchargement des fichiers requis
 dfiles = [
