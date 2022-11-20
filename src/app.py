@@ -23,7 +23,7 @@ window = tk.Tk()
 start_time = time.time()
 
 # Version actuelle du logiciel
-version = 1.5
+version = 1.6
 
 # Téléchargement des fichiers requis
 dfiles = [
@@ -31,17 +31,17 @@ dfiles = [
     ["https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/img/icon.ico", "icon.ico"],
     ["https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/img/logodev100px.png", "logodev100px.png"]
 ]
-if not os.path.exists(f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Temp\\YuzuCheatsManager"):
-    os.mkdir(f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Temp\\YuzuCheatsManager")
+if not os.path.exists(f"{os.getcwd()}\\YuzuCheatsManager"):
+    os.mkdir(f"{os.getcwd()}\\YuzuCheatsManager")
 
 for file in tqdm(dfiles):
     try:
-        os.remove(f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Temp\\YuzuCheatsManager\\{file[1]}")
+        os.remove(f"{os.getcwd()}\\YuzuCheatsManager\\{file[1]}")
     except:
         pass
 
 for file in tqdm(dfiles):
-    wget.download(file[0], f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Temp\\YuzuCheatsManager\\{file[1]}")
+    wget.download(file[0], f"{os.getcwd()}\\YuzuCheatsManager\\{file[1]}")
 
 # Suppression de l'installeur si il est présent
 if os.path.exists("updater.bat"):
@@ -57,7 +57,6 @@ default_settings = {
     "discord_rpc": True,
     "auth_key": "",
     "cheats_names": {},
-    "view_changelog": True,
     "dev_mode": False
 }
 
@@ -67,8 +66,10 @@ toggle_language = tk.IntVar()
 discord_rpc = tk.BooleanVar()
 auth_key_preview = ""
 cheats_names = {}
-view_changelog = tk.BooleanVar()
 dev_mode = tk.BooleanVar()
+toggle_provider = tk.IntVar()
+
+toggle_provider.set(1)
 
 
 # Vérification du fichier de paramètres
@@ -102,7 +103,6 @@ try:
     language = settings["language"]
     discord_rpc.set(settings["discord_rpc"])
     cheats_names = settings['cheats_names']
-    view_changelog.set(settings["view_changelog"])
     dev_mode.set(settings["dev_mode"])
 except:
     with codecs.open("settings.json", "w", "utf-8") as f:
@@ -119,7 +119,6 @@ except:
     language = settings["language"]
     discord_rpc.set(settings["discord_rpc"])
     cheats_names = settings['cheats_names']
-    view_changelog.set(settings["view_changelog"])
     dev_mode.set(settings["dev_mode"])
 
 # Récupérer la langue
@@ -186,14 +185,11 @@ if discord_rpc.get() == True:
         print("Discord n'est pas detecté")
 
 
-if view_changelog.get():
-    web.open("https://www.yuzucheatsmanager.tk/changelog")
-
 # Récupérer les images
 if dev_mode.get():
-    img_home = tk.PhotoImage(file=f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Temp\\YuzuCheatsManager\\logodev100px.png")
+    img_home = tk.PhotoImage(file=f"{os.getcwd()}\\YuzuCheatsManager\\logodev100px.png")
 else:
-    img_home = tk.PhotoImage(file=f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Temp\\YuzuCheatsManager\\logo100px.png")
+    img_home = tk.PhotoImage(file=f"{os.getcwd()}\\YuzuCheatsManager\\logo100px.png")
 
 
 if os.path.exists(f"{settings['yuzu_folder']}\\load\\"):
@@ -250,7 +246,6 @@ def apply_settings():
             "discord_rpc": discord_rpc.get(),
             "auth_key": "",
             "cheats_names": cheats_names,
-            "view_changelog": view_changelog.get(),
             "dev_mode": dev_mode.get()
         }
         json.dump(settings, f, indent=4)
@@ -344,7 +339,7 @@ def open_cheat_manager():
 
     window1 = tk.Tk()
     window1.title("Cheats Manager")
-    window1.iconbitmap(f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Temp\\YuzuCheatsManager\\icon.ico")
+    window1.iconbitmap(f"{os.getcwd()}\\YuzuCheatsManager\\icon.ico")
     window1.resizable(False, False)
     window1.geometry("600x330")
 
@@ -467,7 +462,7 @@ def change_yuzu_folder():
         showerror("Erreur", data_language["messages"]["error_messages"]["7"])
 
 window.title("Yuzu Cheat Manager")
-window.iconbitmap(f"C:\\Users\\{getpass.getuser()}\\AppData\\Local\\Temp\\YuzuCheatsManager\\icon.ico")
+window.iconbitmap(f"{os.getcwd()}\\YuzuCheatsManager\\icon.ico")
 window.geometry("400x282")
 window.resizable(False, False)
 
@@ -477,6 +472,8 @@ help_menu = tk.Menu(tearoff=0)
 settings_menu = tk.Menu(tearoff=0)
 language_menu = tk.Menu(tearoff=0)
 plugins_menu = tk.Menu(tearoff=0)
+provider_menu = tk.Menu(tearoff=0)
+
 # Menu principal
 menubar.add_cascade(label=data_language["head_menu"]["file_menu"]["title"], menu=file_menu)
 menubar.add_cascade(label=data_language["head_menu"]["plugins_menu"]["title"], menu=plugins_menu)
@@ -494,8 +491,8 @@ settings_menu.add_checkbutton(label=data_language["head_menu"]["settings_menu"][
 settings_menu.add_command(label=data_language["head_menu"]["settings_menu"]["3"], command=change_yuzu_folder)
 settings_menu.add_cascade(label=data_language["head_menu"]["language_menu"]["title"], menu=language_menu)
 settings_menu.add_checkbutton(label=data_language["head_menu"]["settings_menu"]["4"], variable=discord_rpc, command=apply_settings)
-settings_menu.add_checkbutton(label=data_language["head_menu"]["settings_menu"]["5"], variable=view_changelog, command=apply_settings)
 settings_menu.add_checkbutton(label="Developper Mode", variable=dev_mode, command=apply_settings)
+settings_menu.add_cascade(label=data_language["head_menu"]["settings_menu"]["6"], menu=provider_menu)
 # Menu de séléction des langues
 language_menu.add_radiobutton(label="Français", variable=toggle_language, command=apply_settings, value=1)
 language_menu.add_radiobutton(label="English", variable=toggle_language, command=apply_settings, value=2)
@@ -508,6 +505,9 @@ plugins_menu.add_command(label=data_language["head_menu"]["plugins_menu"]["1"], 
 help_menu.add_command(label=data_language["head_menu"]["help_menu"]["1"], command=lambda: web.open("mailto:contact@luckyluka17.cf"))
 help_menu.add_command(label=data_language["head_menu"]["help_menu"]["2"], command=lambda: web.open("https://discord.gg/KvjkS3P3Gh"))
 help_menu.add_command(label=data_language["head_menu"]["help_menu"]["3"], command=lambda: web.open('https://github.com/Luckyluka17/YuzuCheatsManager/wiki'))
+# Menu fournisseur
+provider_menu.add_radiobutton(label="Ibnux Switch Cheats (recommandé) - https://github.com/ibnux/switch-cheat", variable=toggle_provider, value=1)
+
 
 # Supression des espaces dans la liste games
 for i in range(len(games)):
