@@ -44,7 +44,8 @@
             "2": "Avertissement de jeux incompatibles",
             "3": "Modifier l'emplacement du dossier Yuzu",
             "4": "Activer le status Discord",
-            "5": "Afficher le changelog à chaque démarrage"
+            "5": "Afficher le changelog à chaque démarrage",
+            "6": "Fournisseur de cheats"
         },
         "help_menu": {
             "title": "Aide",
