@@ -13,3 +13,4 @@ src/discord_bot/
 .vscode/
 assets/
 src/update_game_list.py
+YuzuCheatsManager/
