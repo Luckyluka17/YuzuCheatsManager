@@ -5,8 +5,6 @@
 <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/Luckyluka17/YuzuCheatsManager/total">
 <a href="https://wakatime.com/badge/user/2396d49b-6ea5-49cb-a528-ba685f8c7ae9/project/ff53be95-3f16-4505-a187-20c4bbfc4732"><img src="https://wakatime.com/badge/user/2396d49b-6ea5-49cb-a528-ba685f8c7ae9/project/ff53be95-3f16-4505-a187-20c4bbfc4732.svg" alt="wakatime"></a>
 <img alt="Discord" src="https://img.shields.io/discord/1017472968395329547?label=discord">
-<br><br>
-<img src="img/uk_flag.png" width="1%"><a href="https://github.com/Luckyluka17/YuzuCheatsManager/blob/main/README_EN.md">  English version</a>
 </div>
 <br>
 
@@ -19,10 +17,19 @@ Pour l'installer, vous aurez besoin de télécharger le fichier **YuzuCheatsMana
 Une fois qu'il est téléchargé, utilisez un outil pour **l'extraire** (WinRar, 7zip ou l'outil préinstallé dans Windows). Ouvrez ensuite le fichier **app.exe** et ça y est, Yuzu Cheats Manager est prêt !
 Si vous avez des soucis, essayez d'ouvrir l'application en temps qu'administrateur.
 
+## Proposer ses cheats
+Si vous possèdez des cheats codes sur un jeu, qui n'est pas présent dans le dépôt de base, vous pouvez créer votre propre dépôt avec vos cheats.
+
+Les instructions seront indiqués sur le dépôt ci dessous.
+
+[`➡️ Créer son dépôt de cheats`](https://github.com/Luckyluka17/YCM-Server-Template)
+
+
 ## Remerciements & crédits
-- [Dépôt Switch Cheats](https://github.com/ibnux/switch-cheat) (utilisé pour télécharger les cheats) par **ibnux**
-- [Polo228](https://www.polo228.tk) (a contribué dans le développement du site)
-- [Icônes par Freepik](https://www.freepik.com/)
+- Fournisseur de cheats
+    - Ibnux, avec le dépôt [`Switch Cheats`](https://github.com/ibnux/switch-cheat)
+- Contribution au développement
+    - [Polo228](https://www.polo228.tk)
 
 ## Soutenir le projet
 Vous aimez ce projet ? N'hésitez pas à faire un petit don pour aider son créateur !
