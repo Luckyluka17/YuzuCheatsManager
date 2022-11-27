@@ -7,7 +7,8 @@
             "4": "Veuillez séléctionner un fichier.",
             "5": "Veuillez séléctionner un cheat à supprimer.\nPour supprimer un cheat, cliquez dessus puis cliquez sur le bouton.",
             "6": "Le jeu séléctionné n'a aucun cheat d'installé. Veuillez télécharger des cheats avant de pouvoir les gérer.",
-            "7": "Le dossier de Yuzu est invalide."
+            "7": "Le dossier de Yuzu est invalide.",
+            "8": "Erreur lors de la connexion au dépôt de cheats. Vérifiez que vous êtes connecté à internet, et ci c'est le cas, vérifiez le status du dépôt.\nSi le problème persiste, contactez nous sur Discord."
         },
         "info_messages": {
             "1": "Les cheats ont bien été installés dans le répertoire du jeu.",

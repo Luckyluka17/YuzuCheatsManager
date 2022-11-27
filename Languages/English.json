@@ -7,7 +7,8 @@
             "4": "Please select a file.",
             "5": "Please select a cheat to remove. \nTo remove a cheat, click on it and then click on the button",
             "6": "The selected game has no cheats installed. Please download cheats before you can manage them.",
-            "7": "Yuzu's folder is invalid."
+            "7": "Yuzu's folder is invalid.",
+            "8": "Error when connecting to the cheats repository. Check that you are connected to the internet, and if so, check the status of the repository.\nIf the problem persists, contact us on Discord."
         },
         "info_messages": {
             "1": "The cheats have been installed in the game directory correctly.",
