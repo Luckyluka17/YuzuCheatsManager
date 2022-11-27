@@ -13,9 +13,9 @@ Yuzu Cheats Manager vous permet d'installer, de gérer et de supprimer des cheat
 **⚠️ Ce logiciel est expérimental, il n'est pas impossible que vous trouviez des bugs. Si c'est le cas, merci de contacter son créateur par le biais de [Discord](https://discord.gg/KvjkS3P3Gh).**
 
 ## Installation
-Pour l'installer, vous aurez besoin de télécharger le fichier **YuzuCheatsManager.zip** dans le page [releases](https://github.com/Luckyluka17/YuzuCheatsManager/releases).
-Une fois qu'il est téléchargé, utilisez un outil pour **l'extraire** (WinRar, 7zip ou l'outil préinstallé dans Windows). Ouvrez ensuite le fichier **app.exe** et ça y est, Yuzu Cheats Manager est prêt !
-Si vous avez des soucis, essayez d'ouvrir l'application en temps qu'administrateur.
+Pour l'installer, vous aurez besoin de télécharger le fichier **YuzuCheatsManager.exe** (ou **YuzuCheatsManager.zip** sur des versions plus anciennes) dans le page [releases](https://github.com/Luckyluka17/YuzuCheatsManager/releases).
+
+Si vous avez des soucis lors de l'exécution du programme, vérifiez que tous les fichiers sont présents ou essayez d'ouvrir l'application en temps qu'administrateur.
 
 ## Proposer ses cheats
 Si vous possèdez des cheats codes sur un jeu, qui n'est pas présent dans le dépôt de base, vous pouvez créer votre propre dépôt avec vos cheats.
