@@ -81,8 +81,14 @@ ion-icon {
     margin-right: 10px;
 }
 
-@media (min-width: 992px) {
-    .dropdown:hover .dropdown-menu {
-        display: block;
-    }
+.card {
+    color: white;
+    background-color: #333333;
+    margin-right: 20px;
+    transition: all 0.5s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    transition: all 0.5s ease-in-out;
 }
