@@ -1,5 +1,4 @@
 import codecs
-import getpass
 import json
 import os
 import sys
@@ -11,28 +10,30 @@ from threading import Thread
 from tkinter import ttk
 from tkinter.filedialog import askdirectory
 from tkinter.messagebox import showerror, showinfo, showwarning
-from tqdm import tqdm
 
 import requests
 import wget
 from bs4 import BeautifulSoup
 from pypresence import Presence
+from tqdm import tqdm
 
 window = tk.Tk()
 
 start_time = time.time()
 
 # Version actuelle du logiciel
-version = 1.6
+version = 1.7
 
-# Téléchargement des fichiers requis
+# Téléchargement des fichiers requis (fichiers temporaires)
 dfiles = [
     ["https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/img/logo100px.png", "logo100px.png"],
     ["https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/img/icon.ico", "icon.ico"],
-    ["https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/img/logodev100px.png", "logodev100px.png"]
+    ["https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/img/logodev100px.png", "logodev100px.png"],
 ]
 if not os.path.exists(f"{os.getcwd()}\\YuzuCheatsManager"):
     os.mkdir(f"{os.getcwd()}\\YuzuCheatsManager")
+
+
 
 for file in tqdm(dfiles):
     try:
@@ -57,9 +58,15 @@ default_settings = {
     "discord_rpc": True,
     "auth_key": "",
     "cheats_names": {},
-    "dev_mode": False
+    "dev_mode": False,
+    "servers": {
+        "Switch Cheats": "https://github.com/ibnux/switch-cheat/tree/master/sxos/titles/"
+    },
+    "actual_server": 1
 }
 
+
+# Mise en place des variables tkinter
 verify_updates = tk.BooleanVar()
 notify_incompatible_games = tk.BooleanVar()
 toggle_language = tk.IntVar()
@@ -68,8 +75,6 @@ auth_key_preview = ""
 cheats_names = {}
 dev_mode = tk.BooleanVar()
 toggle_provider = tk.IntVar()
-
-toggle_provider.set(1)
 
 
 # Vérification du fichier de paramètres
@@ -104,6 +109,8 @@ try:
     discord_rpc.set(settings["discord_rpc"])
     cheats_names = settings['cheats_names']
     dev_mode.set(settings["dev_mode"])
+    toggle_provider.set(settings["actual_server"])
+    actual_server = settings["servers"][str(list(settings["servers"].keys())[settings["actual_server"]-1])]
 except:
     with codecs.open("settings.json", "w", "utf-8") as f:
         json.dump(default_settings, f)
@@ -120,6 +127,8 @@ except:
     discord_rpc.set(settings["discord_rpc"])
     cheats_names = settings['cheats_names']
     dev_mode.set(settings["dev_mode"])
+    toggle_provider.set(settings["actual_server"])
+    actual_server = settings["servers"][str(list(settings["servers"].keys())[settings["actual_server"]-1])]
 
 # Récupérer la langue
 with requests.get(f"https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/Languages/{language}.json") as r:
@@ -156,8 +165,15 @@ for plugin in os.listdir("Plugins"):
             print("Erreur plugin invalide")
 
 
+# Vérification et mise en place des serveurs customs
+if not settings["servers"].get("Switch Cheats") == "https://github.com/ibnux/switch-cheat/tree/master/sxos/titles/":
+    showerror("Erreur", "Une erreur est survenue lors de la vérification des serveurs. Vérifiez votre fichier des paramètres.")
+    sys.exit()
+else:
+    servers = settings["servers"]
 
-# Vérification de la version installée et comparaison avec la dernière version
+
+# Vérification de la version installée et comparaison avec la dernière version + affichage du message d'information s'il y en a un
 with requests.get("https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/appinfo.json") as r:
     data_app = json.loads(r.text)
 
@@ -167,6 +183,9 @@ if data_app["latest-version"] > version and verify_updates.get() == True:
     os.startfile("updater.bat")
     sys.exit()
     
+if data_app["informations"] != "":
+    window.withdraw()
+    showinfo("Information", data_app["informations"])
 
 # Démarrer la RPC Discord
 if discord_rpc.get() == True:
@@ -192,19 +211,35 @@ else:
     img_home = tk.PhotoImage(file=f"{os.getcwd()}\\YuzuCheatsManager\\logo100px.png")
 
 
+# Vérifier le dossier Yuzu et télécharger les données des jeux
 if os.path.exists(f"{settings['yuzu_folder']}\\load\\"):
     games = os.listdir(f"{settings['yuzu_folder']}load\\")
     for game in games:
         if "." in game:
             games.remove(game)
     
-    for game in tqdm(games):
-        with requests.get(f"https://github.com/ibnux/switch-cheat/tree/master/sxos/titles/{game}") as r:
-            soup = BeautifulSoup(r.content, 'html.parser')
-            for i in soup.find_all(class_="js-navigation-open Link--primary"):
-                game_name = i.text
-            games_list[str(game_name).replace("-", " ").replace(".txt", "").replace("™", "").upper()] = game
-            games[games.index(game)] = str(game_name).replace("-", " ").replace(".txt", "").replace("™", "").upper()
+    try:
+        for game in tqdm(games):
+            with requests.get("https://raw.githubusercontent.com/blawar/titledb/master/BE.fr.json") as r:
+                data = json.loads(r.text)
+                r.close()
+
+            games_data = {}
+
+            for key in tqdm(data.keys()):
+                games_data[str(data[key]["id"])] = str(data[key]["name"])
+
+            
+
+            del data
+            if game in games_data:
+                games[games.index(game)] = games_data[game].replace("™", "").replace("+", "avec").upper()
+                games_list[games_data[game].replace("™", "").replace("+", "avec").upper()] = game
+            
+        print(games_list)
+    except:
+        showerror("Erreur", data_language["messages"]["error_messages"]["8"])
+        sys.exit()
 else:
     showerror("Erreur", data_language["messages"]["error_messages"]["1"])
     sys.exit()
@@ -213,17 +248,25 @@ def download_cheats():
     if cb1.get() == "":
         showerror("Erreur", data_language["messages"]["error_messages"]["2"])
     else:
-        with requests.get(f"https://github.com/ibnux/switch-cheat/tree/master/sxos/titles/{games_list[cb1.get()]}/cheats") as r:
+        with requests.get(f"{actual_server}{games_list[cb1.get()]}/cheats") as r:
                 soup = BeautifulSoup(r.content, 'html.parser')
                 if os.path.exists(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}") == False:
                     os.mkdir(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}")
                 if os.path.exists(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats") == False:
                     os.mkdir(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats")
                 if os.listdir(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats") == []:
-                    for i in tqdm(soup.find_all(class_="js-navigation-open Link--primary")):
-                        file_name = i.text
-                        wget.download(f"https://raw.githubusercontent.com/ibnux/switch-cheat/master/sxos/titles/{games_list[cb1.get()]}/cheats/{file_name}", f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats\\{file_name.upper()}")
-                    showinfo("Téléchargements des cheats", data_language["messages"]["info_messages"]["1"])
+                    # Vérifier si le dépôt des cheats possède des cheats pour ce jeu, si oui, alors téléchargement
+                    test = []
+                    for f in soup.find_all(class_="js-navigation-open Link--primary"):
+                        test.append(f.text)
+                    if test == []:
+                        showerror("Erreur", "Le dépôt de cheats actuel ne possède pas de cheat(s) pour ce jeu.")
+                    else:
+                        for i in tqdm(soup.find_all(class_="js-navigation-open Link--primary")):
+                            file_name = i.text
+                            wget.download(f"{actual_server.replace('/tree', '').replace('https://github.com/', 'https://raw.githubusercontent.com/')}{games_list[cb1.get()]}/cheats/{file_name}", f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats\\{file_name.upper()}")
+                        showinfo("Téléchargements des cheats", data_language["messages"]["info_messages"]["1"])
+                    del test
                 else:
                     showerror("Erreur", data_language["messages"]["error_messages"]["3"])
 
@@ -246,7 +289,9 @@ def apply_settings():
             "discord_rpc": discord_rpc.get(),
             "auth_key": "",
             "cheats_names": cheats_names,
-            "dev_mode": dev_mode.get()
+            "dev_mode": dev_mode.get(),
+            "servers": servers,
+            "actual_server": toggle_provider.get(),
         }
         json.dump(settings, f, indent=4)
 
@@ -466,6 +511,8 @@ window.iconbitmap(f"{os.getcwd()}\\YuzuCheatsManager\\icon.ico")
 window.geometry("400x282")
 window.resizable(False, False)
 
+window.deiconify()
+
 menubar = tk.Menu()
 file_menu = tk.Menu(tearoff=0)
 help_menu = tk.Menu(tearoff=0)
@@ -502,12 +549,16 @@ for plugin in plugins.keys():
 plugins_menu.add_separator()
 plugins_menu.add_command(label=data_language["head_menu"]["plugins_menu"]["1"], command=lambda: web.open("https://www.yuzucheatsmanager.tk/plugins.html#"))
 # Menu Aide
-help_menu.add_command(label=data_language["head_menu"]["help_menu"]["1"], command=lambda: web.open("mailto:contact@luckyluka17.cf"))
 help_menu.add_command(label=data_language["head_menu"]["help_menu"]["2"], command=lambda: web.open("https://discord.gg/KvjkS3P3Gh"))
-help_menu.add_command(label=data_language["head_menu"]["help_menu"]["3"], command=lambda: web.open('https://github.com/Luckyluka17/YuzuCheatsManager/wiki'))
+help_menu.add_command(label=data_language["head_menu"]["help_menu"]["3"], command=lambda: web.open('https://docs.yuzucheatsmanager.tk'))
 # Menu fournisseur
-provider_menu.add_radiobutton(label="Ibnux Switch Cheats (recommandé) - https://github.com/ibnux/switch-cheat", variable=toggle_provider, value=1)
-
+for server in servers:
+    provider_menu.add_radiobutton(label=f"{server} | {servers[server]}", variable=toggle_provider, value=list(servers.keys()).index(server)+1, command=apply_settings)
+provider_menu.add_separator()
+provider_menu.add_command(label="Liste des serveurs publiques disponible sur notre serveur Discord. Il", state="disabled")
+provider_menu.add_command(label="est probable que si vous utilisez des dépôts autres que sur Github votre", state="disabled")
+provider_menu.add_command(label="IP soit partagée, soyez prudent. Nous ne sommes pas responsables en cas", state="disabled")
+provider_menu.add_command(label="de problème.", state="disabled")
 
 # Supression des espaces dans la liste games
 for i in range(len(games)):
@@ -541,7 +592,7 @@ cb1 = ttk.Combobox(
     window,
     values=games,
     state="readonly",
-    width=40,
+    width=45,
     cursor="hand2"
 )
 cb1.pack()
