@@ -5,6 +5,8 @@
 <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/Luckyluka17/YuzuCheatsManager/total">
 <a href="https://wakatime.com/badge/user/2396d49b-6ea5-49cb-a528-ba685f8c7ae9/project/ff53be95-3f16-4505-a187-20c4bbfc4732"><img src="https://wakatime.com/badge/user/2396d49b-6ea5-49cb-a528-ba685f8c7ae9/project/ff53be95-3f16-4505-a187-20c4bbfc4732.svg" alt="wakatime"></a>
 <img alt="Discord" src="https://img.shields.io/discord/1017472968395329547?label=discord">
+<img alt="Website" src="https://img.shields.io/website?label=Discord%20bot&url=https%3A%2F%2Fyuzucheatsmanagerbot.luckyluka17.repl.co%2F">
+<img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fwww.yuzucheatsmanager.tk">
 </div>
 <br>
 
