@@ -62,6 +62,12 @@
         "plugins_menu": {
             "title": "Plugins",
             "1": "Télécharger des plugins"
+        },
+        "ycm_menu": {
+            "title": "YuzuCheatsManager",
+            "1": "Forcer la mise à jour",
+            "2": "Ouvrir la console",
+            "3": "Signaler un problème (bêta)"
         }
     },
     "texts": {
