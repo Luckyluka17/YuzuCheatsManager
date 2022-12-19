@@ -24,7 +24,7 @@ Si vous possèdez des cheats codes sur un jeu, qui n'est pas présent dans le d�
 
 Les instructions seront indiqués sur le dépôt ci dessous.
 
-[`➡️ Créer son dépôt de cheats`](https://github.com/Luckyluka17/YCM-Server-Template)
+[`➡️ Créer son dépôt de cheats`](https://github.com/Luckyluka17/YCM-Server-Template/fork)
 
 
 ## Remerciements & crédits
