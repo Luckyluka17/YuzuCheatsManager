@@ -28,9 +28,9 @@ Les instructions seront indiqués sur le dépôt ci dessous.
 
 
 ## Remerciements & crédits
-- Fournisseur de cheats
+- Fournisseurs de dépôts de cheats
     - Ibnux, avec le dépôt [`Switch Cheats`](https://github.com/ibnux/switch-cheat)
-- Contribution au développement
+- Contributeurs au développement
     - [Polo228](https://www.polo228.tk)
 
 ## Soutenir le projet
