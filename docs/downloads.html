@@ -69,18 +69,40 @@
         <h2>Téléchargements</h2>
         <p>⚠️ à l'ouverture du logiciel, Windows vous affichera un message du style "Windows a protégé votre ordinateur", c'est un <strong>faux positif</strong> ! <a href="#offcanvas1" data-bs-toggle="offcanvas">Plus d'informations...</a></p>
         <br/>
+        <div class="cards-container">
         <a href="https://github.com/Luckyluka17/YuzuCheatsManager/releases" class="button-link">
             <button type="button" class="btn btn-light"><ion-icon name="cloud-download-outline"></ion-icon> Voir toutes les versions</button>
         </a>
+        <a href="https://yuzu-emu.org/downloads/" class="button-link">
+          <button type="button" class="btn btn-light"><ion-icon name="hammer-outline"></ion-icon> Télécharger Yuzu (site officiel)</button>
+        </a>
+        <a href="https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/src/app.py" class="button-link" download>
+          <button type="button" class="btn btn-light"><ion-icon name="code-download-outline"></ion-icon> Télécharger le code source</button>
+        </a>
+        </div>
         <br/><br/>
       </section>
       <section id="maj" align="center">
         <br/><br/>
           <div class="cards-container">
+            <!-- 1.8 -->
+            <div class="maj-cards">
+              <div class="container">
+                <span class="badge rounded-pill bg-success">Dernière version</span>
+                <a href="https://github.com/Luckyluka17/YuzuCheatsManager/releases/download/1.8/YuzuCheatsManager.exe"><h5>Version 1.8</h5></a> <code>28/12/2022</code>
+                <ul>
+                  <li>Correction de bugs (3 bugs réglés)</li>
+                  <li>Ajout d'une fenêtre de chargement lors du téléchargements des assets</li>
+                  <li>Modifications de l'updater</li>
+                  <li>Ajout d'icones pour amener sur le serveur Discord et le dépôt Github</li>
+                </ul>
+                <p>🎇 Passez également de bonnes fêtes de fin d'année !</p>
+              </div>
+            </div>
             <!-- 1.7 -->
             <div class="maj-cards">
               <div class="container">
-                <span class="badge rounded-pill bg-success">Dernière version</span><span class="badge rounded-pill bg-warning text-dark">Version expérimentale</span>
+                <span class="badge rounded-pill bg-warning text-dark">Version expérimentale</span>
                 <a href="https://github.com/Luckyluka17/YuzuCheatsManager/releases/download/1.7/YuzuCheatsManager.exe"><h5>Version 1.7</h5></a>
                 <ul>
                   <li>Modification du système de vérification des jeux (plus efficace mais plus lent)</li>
@@ -178,6 +200,9 @@
         <br/>
         <p>Site réalisé par <a href="https://www.luckyluka17.cf" target="_blank">Luckyluka17</a> et <a href="https://www.polo228.tk" target="_blank">Polo228</a> - Nous ne sommes pas affilié par Yuzu.</p>
         <img src="https://img.shields.io/badge/Powered%20by-Boostrap%205-blueviolet">
+        <a href="https://github.io">
+          <img src="https://img.shields.io/badge/Hosted%20by-Github%20Pages-red">
+        </a>
         <br/><br/>
       </section>
       <!-- Offcanvas -->
