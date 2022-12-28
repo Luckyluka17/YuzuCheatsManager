@@ -15,33 +15,68 @@ import requests
 import wget
 from bs4 import BeautifulSoup
 from pypresence import Presence
-from tqdm import tqdm
 
 window = tk.Tk()
+launch_window = tk.Tk()
 
 start_time = time.time()
 
 # Version actuelle du logiciel
-version = 1.7
+version = 1.8
+
 
 # Téléchargement des fichiers requis (fichiers temporaires)
 dfiles = [
     ["https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/img/logo100px.png", "logo100px.png"],
     ["https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/img/icon.ico", "icon.ico"],
     ["https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/img/logodev100px.png", "logodev100px.png"],
+    ["https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/img/Brands-icons/discord-icon.png", "discord_logo.png"],
+    ["https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/img/Brands-icons/github-icon.png", "github_logo.png"]
 ]
+# Vérification du dossier temporaire
 if not os.path.exists(f"{os.getcwd()}\\YuzuCheatsManager"):
     os.mkdir(f"{os.getcwd()}\\YuzuCheatsManager")
 
+# Cacher la fenêtre principale le temps que le logiciel télécharge les assets
+window.withdraw()
 
+launch_window.title("YuzuCheatsManager")
+launch_window.geometry("200x90")
+launch_window.resizable(False, False)
+launch_window.overrideredirect(True)
 
-for file in tqdm(dfiles):
+if not os.path.exists(f"{os.getcwd()}\\YuzuCheatsManager\\launch.png"):
+    wget.download("https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/img/logo50px.png", f"{os.getcwd()}\\YuzuCheatsManager\\launch.png")
+
+launch_image = tk.PhotoImage(master=launch_window, file=f"{os.getcwd()}\\YuzuCheatsManager\\launch.png")
+
+ttk.Label(
+    launch_window,
+    image=launch_image
+).place(x=15, y=20)
+
+ttk.Label(
+    launch_window,
+    text="Démarrage",
+    font=("Calibri", 17)
+).place(x=80, y=20)
+
+ttk.Label(
+    launch_window,
+    text=f"Version {version}",
+    font=("Calibri", 8)
+).place(x=83, y=50)
+
+launch_window.eval('tk::PlaceWindow . center')
+launch_window.update()
+
+for file in dfiles:
     try:
         os.remove(f"{os.getcwd()}\\YuzuCheatsManager\\{file[1]}")
     except:
         pass
 
-for file in tqdm(dfiles):
+for file in dfiles:
     wget.download(file[0], f"{os.getcwd()}\\YuzuCheatsManager\\{file[1]}")
 
 # Suppression de l'installeur si il est présent
@@ -62,7 +97,7 @@ default_settings = {
     "servers": {
         "Switch Cheats": "https://github.com/ibnux/switch-cheat/tree/master/sxos/titles/"
     },
-    "actual_server": 1
+    "actual_server": 1,
 }
 
 
@@ -75,6 +110,13 @@ auth_key_preview = ""
 cheats_names = {}
 dev_mode = tk.BooleanVar()
 toggle_provider = tk.IntVar()
+
+def update():
+    launch_window.destroy()
+    wget.download("https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/src/updater.bat", "updater.bat")
+    os.startfile("updater.bat")
+    window.destroy()
+    sys.exit()
 
 
 # Vérification du fichier de paramètres
@@ -178,10 +220,7 @@ with requests.get("https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManag
     data_app = json.loads(r.text)
 
 if data_app["latest-version"] > version and verify_updates.get() == True:
-    window.destroy()
-    wget.download("https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/src/updater.bat", "updater.bat")
-    os.startfile("updater.bat")
-    sys.exit()
+    update()
     
 if data_app["informations"] != "":
     window.withdraw()
@@ -206,10 +245,11 @@ if discord_rpc.get() == True:
 
 # Récupérer les images
 if dev_mode.get():
-    img_home = tk.PhotoImage(file=f"{os.getcwd()}\\YuzuCheatsManager\\logodev100px.png")
+    img_home = tk.PhotoImage(master=window, file=f"{os.getcwd()}\\YuzuCheatsManager\\logodev100px.png")
 else:
-    img_home = tk.PhotoImage(file=f"{os.getcwd()}\\YuzuCheatsManager\\logo100px.png")
-
+    img_home = tk.PhotoImage(master=window,file=f"{os.getcwd()}\\YuzuCheatsManager\\logo100px.png")
+img_discord = tk.PhotoImage(master=window, file=f"{os.getcwd()}\\YuzuCheatsManager\\discord_logo.png")
+img_github = tk.PhotoImage(master=window, file=f"{os.getcwd()}\\YuzuCheatsManager\\github_logo.png")
 
 # Vérifier le dossier Yuzu et télécharger les données des jeux
 if os.path.exists(f"{settings['yuzu_folder']}\\load\\"):
@@ -219,14 +259,14 @@ if os.path.exists(f"{settings['yuzu_folder']}\\load\\"):
             games.remove(game)
     
     try:
-        for game in tqdm(games):
+        for game in games:
             with requests.get("https://raw.githubusercontent.com/blawar/titledb/master/BE.fr.json") as r:
                 data = json.loads(r.text)
                 r.close()
 
             games_data = {}
 
-            for key in tqdm(data.keys()):
+            for key in data.keys():
                 games_data[str(data[key]["id"])] = str(data[key]["name"])
 
             
@@ -248,27 +288,32 @@ def download_cheats():
     if cb1.get() == "":
         showerror("Erreur", data_language["messages"]["error_messages"]["2"])
     else:
-        with requests.get(f"{actual_server}{games_list[cb1.get()]}/cheats") as r:
-                soup = BeautifulSoup(r.content, 'html.parser')
-                if os.path.exists(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}") == False:
-                    os.mkdir(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}")
-                if os.path.exists(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats") == False:
-                    os.mkdir(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats")
-                if os.listdir(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats") == []:
-                    # Vérifier si le dépôt des cheats possède des cheats pour ce jeu, si oui, alors téléchargement
-                    test = []
-                    for f in soup.find_all(class_="js-navigation-open Link--primary"):
-                        test.append(f.text)
-                    if test == []:
-                        showerror("Erreur", "Le dépôt de cheats actuel ne possède pas de cheat(s) pour ce jeu.")
+        try:
+            with requests.get(f"{actual_server}{games_list[cb1.get()]}/cheats") as r:
+                    soup = BeautifulSoup(r.content, 'html.parser')
+                    if os.path.exists(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}") == False:
+                        os.mkdir(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}")
+                    if os.path.exists(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats") == False:
+                        os.mkdir(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats")
+                    if os.listdir(f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats") == []:
+                        # Vérifier si le dépôt des cheats possède des cheats pour ce jeu, si oui, alors téléchargement
+                        test = []
+                        for f in soup.find_all(class_="js-navigation-open Link--primary"):
+                            test.append(f.text)
+                        if test == []:
+                            os.system("rmdir /s /q " + f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}")
+                            showerror("Erreur", "Le dépôt de cheats actuel ne possède pas de cheat(s) pour ce jeu.")
+                        else:
+                            for i in soup.find_all(class_="js-navigation-open Link--primary"):
+                                file_name = i.text
+                                wget.download(f"{actual_server.replace('/tree', '').replace('https://github.com/', 'https://raw.githubusercontent.com/')}{games_list[cb1.get()]}/cheats/{file_name}", f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats\\{file_name.upper()}")
+                            showinfo("Téléchargements des cheats", data_language["messages"]["info_messages"]["1"])
+                        del test
                     else:
-                        for i in tqdm(soup.find_all(class_="js-navigation-open Link--primary")):
-                            file_name = i.text
-                            wget.download(f"{actual_server.replace('/tree', '').replace('https://github.com/', 'https://raw.githubusercontent.com/')}{games_list[cb1.get()]}/cheats/{file_name}", f"{settings['yuzu_folder']}load\\{games_list[cb1.get()]}\\{games_list[cb1.get()]}\\cheats\\{file_name.upper()}")
-                        showinfo("Téléchargements des cheats", data_language["messages"]["info_messages"]["1"])
-                    del test
-                else:
-                    showerror("Erreur", data_language["messages"]["error_messages"]["3"])
+                        showerror("Erreur", data_language["messages"]["error_messages"]["3"])
+        except KeyError:
+            showerror("Erreur", "Jeu invalide.")
+
 
 def apply_settings():
     global settings
@@ -391,7 +436,7 @@ def open_cheat_manager():
     ttk.Label(
         window1,
         text=f"{data_language['texts']['2']} {cb1.get()}",
-        font=("Calibri", 15)
+        font=("Calibri", 15),
     ).pack()
 
     tree = ttk.Treeview(
@@ -422,13 +467,13 @@ def open_cheat_manager():
     ttk.Label(
         window1,
         text=data_language["texts"]["5"],
-        font=("Calibri", 12)
+        font=("Calibri", 12),
     ).place(x=265, y=263)
 
     ttk.Label(
         window1,
         text="Nom du cheat",
-        font=("Calibri", 12)
+        font=("Calibri", 12),
     ).place(x=265, y=292)
 
     cheat_name = ttk.Entry(
@@ -486,6 +531,7 @@ def open_cheat_manager():
     )
     bouton8.place(x=37, y=296)
 
+    window1.configure()
     window1.mainloop()
 
 def open_cheat_manager1():
@@ -506,6 +552,7 @@ def change_yuzu_folder():
         yuzu_folder = settings["yuzu_folder"]
         showerror("Erreur", data_language["messages"]["error_messages"]["7"])
 
+
 window.title("Yuzu Cheat Manager")
 window.iconbitmap(f"{os.getcwd()}\\YuzuCheatsManager\\icon.ico")
 window.geometry("400x282")
@@ -520,9 +567,11 @@ settings_menu = tk.Menu(tearoff=0)
 language_menu = tk.Menu(tearoff=0)
 plugins_menu = tk.Menu(tearoff=0)
 provider_menu = tk.Menu(tearoff=0)
+ycm_menu = tk.Menu(tearoff=0)
 
 # Menu principal
 menubar.add_cascade(label=data_language["head_menu"]["file_menu"]["title"], menu=file_menu)
+menubar.add_cascade(label=data_language["head_menu"]["ycm_menu"]["title"], menu=ycm_menu)
 menubar.add_cascade(label=data_language["head_menu"]["plugins_menu"]["title"], menu=plugins_menu)
 menubar.add_cascade(label=data_language["head_menu"]["help_menu"]["title"], menu=help_menu)
 # Menu Fichier
@@ -548,6 +597,9 @@ for plugin in plugins.keys():
     plugins_menu.add_command(label=f"{plugin} | {plugins[plugin]['version']} | {plugins[plugin]['developper']}")
 plugins_menu.add_separator()
 plugins_menu.add_command(label=data_language["head_menu"]["plugins_menu"]["1"], command=lambda: web.open("https://www.yuzucheatsmanager.tk/plugins.html#"))
+# Menu YuzuCheatsManager
+ycm_menu.add_command(label=data_language["head_menu"]["ycm_menu"]["1"], command=update)
+ycm_menu.add_command(label=data_language["head_menu"]["ycm_menu"]["3"], state="disabled")
 # Menu Aide
 help_menu.add_command(label=data_language["head_menu"]["help_menu"]["2"], command=lambda: web.open("https://discord.gg/KvjkS3P3Gh"))
 help_menu.add_command(label=data_language["head_menu"]["help_menu"]["3"], command=lambda: web.open('https://docs.yuzucheatsmanager.tk'))
@@ -555,7 +607,7 @@ help_menu.add_command(label=data_language["head_menu"]["help_menu"]["3"], comman
 for server in servers:
     provider_menu.add_radiobutton(label=f"{server} | {servers[server]}", variable=toggle_provider, value=list(servers.keys()).index(server)+1, command=apply_settings)
 provider_menu.add_separator()
-provider_menu.add_command(label="Liste des serveurs publiques disponible sur notre serveur Discord. Il", state="disabled")
+provider_menu.add_command(label="Liste des serveurs publiques disponible sur notre site internet. Il", state="disabled")
 provider_menu.add_command(label="est probable que si vous utilisez des dépôts autres que sur Github votre", state="disabled")
 provider_menu.add_command(label="IP soit partagée, soyez prudent. Nous ne sommes pas responsables en cas", state="disabled")
 provider_menu.add_command(label="de problème.", state="disabled")
@@ -613,6 +665,24 @@ bouton2 = ttk.Button(
 )
 bouton2.place(x=180, y=200)
 
+tk.Button(
+    window,
+    image=img_discord,
+    highlightthickness=0,
+    bd=0,
+    cursor="hand2",
+    command=lambda: web.open('https://discord.gg/SGHtzYbvRx')
+).place(x=10, y=245)
+
+tk.Button(
+    window,
+    image=img_github,
+    highlightthickness=0,
+    bd=0,
+    cursor="hand2",
+    command=lambda: web.open('https://github.com/Luckyluka17/YuzuCheatsManager')
+).place(x=50, y=245)
+
 if dev_mode.get():
     ttk.Label(
         window,
@@ -625,4 +695,7 @@ if '' in games_list.keys() and settings['notify_incompatible_games'] == True:
     showwarning("Attention", data_language["messages"]["warning_messages"]["2"])
 
 window.config(menu=menubar)
+launch_window.destroy()
+window.deiconify()
+window.eval('tk::PlaceWindow . center')
 window.mainloop()
