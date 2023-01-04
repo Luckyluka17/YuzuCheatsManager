@@ -100,3 +100,14 @@ ion-icon {
 .cards-container .button-link {
     margin-right: 10px;
 }
+
+.add-container {
+    margin-top: 40%;
+    display: flex;
+    cursor: pointer;
+}
+
+/* Afficher DIV (pour le dev) */
+/* div {
+    border: 2px solid red;
+} */
