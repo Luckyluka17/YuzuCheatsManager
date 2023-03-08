@@ -107,6 +107,20 @@ ion-icon {
     cursor: pointer;
 }
 
+code {
+    background-color: black;
+    color: white;
+    border: 3px solid black;
+    outline: white solid 1px;
+    border-radius: 5px;
+}
+
+.announce-downloads {
+    background-color: #d90000;
+    border-radius: 5px;
+    border: 2px solid #900b0a;
+}
+
 /* Afficher DIV (pour le dev) */
 /* div {
     border: 2px solid red;
