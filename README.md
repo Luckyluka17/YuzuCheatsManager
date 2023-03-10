@@ -3,14 +3,11 @@
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/Luckyluka17/YuzuCheatsManager">
 <img alt="GitHub repo file count (custom path)" src="https://img.shields.io/github/directory-file-count/Luckyluka17/YuzuCheatsManager/Languages?label=available %20languages">
 <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/Luckyluka17/YuzuCheatsManager/total">
-<a href="https://wakatime.com/badge/user/2396d49b-6ea5-49cb-a528-ba685f8c7ae9/project/ff53be95-3f16-4505-a187-20c4bbfc4732"><img src="https://wakatime.com/badge/user/2396d49b-6ea5-49cb-a528-ba685f8c7ae9/project/ff53be95-3f16-4505-a187-20c4bbfc4732.svg" alt="wakatime"></a>
 <img alt="Discord" src="https://img.shields.io/discord/1017472968395329547?label=discord">
-<img alt="Website" src="https://img.shields.io/website?label=Discord%20bot&url=https%3A%2F%2Fyuzucheatsmanagerbot.luckyluka17.repl.co%2F">
-<img alt="Website" src="https://img.shields.io/website?url=https%3A%2F%2Fwww.yuzucheatsmanager.tk">
 </div>
 <br>
 
-Yuzu Cheats Manager vous permet d'installer, de gérer et de supprimer des cheats de manière automatique sur Yuzu. 
+YuzuCheatsManager vous permet d'installer, de gérer et de supprimer des cheats de manière automatique sur Yuzu (remplacé par EmuKit : [en savoir plus...]()). 
 
 **⚠️ Ce logiciel est expérimental, il n'est pas impossible que vous trouviez des bugs. Si c'est le cas, merci de contacter son créateur par le biais de [Discord](https://discord.gg/KvjkS3P3Gh).**
 
@@ -22,16 +19,24 @@ Si vous avez des soucis lors de l'exécution du programme, vérifiez que tous le
 ## Proposer ses cheats
 Si vous possèdez des cheats codes sur un jeu, qui n'est pas présent dans le dépôt de base, vous pouvez créer votre propre dépôt avec vos cheats.
 
-Les instructions seront indiqués sur le dépôt ci dessous.
+Cliquez ci dessous pour créer un dépôt de cheats.
 
-[`➡️ Créer son dépôt de cheats`](https://github.com/Luckyluka17/YCM-Server-Template/fork)
+[`Créer son dépôt de cheats`](https://github.com/Luckyluka17/YCM-Server-Template/fork)
+
+## Fin de YuzuCheatsManager ? (information)
+En effet, YuzuCheatsManager va être remplacé par EmuKit, qui est un outil pour simplifier l'émulation. Le logiciel ne sera donc plus mis à jour (ou presque, si cas exceptionnel).
+
+➡ [Cliquez ici pour voir le profil Github associé à EmuKit](https://github.com/EmuKit23)
+
+
+
 
 
 ## Remerciements & crédits
 - Fournisseurs de dépôts de cheats
     - Ibnux, avec le dépôt [`Switch Cheats`](https://github.com/ibnux/switch-cheat)
 - Contributeurs au développement
-    - [Polo228](https://www.polo228.tk)
+    - Polo228
 
 ## Soutenir le projet
 Vous aimez ce projet ? N'hésitez pas à faire un petit don pour aider son créateur !
