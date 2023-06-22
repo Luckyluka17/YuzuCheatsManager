@@ -16,3 +16,4 @@ src/update_game_list.py
 YuzuCheatsManager/
 src/bot/
 .env
+build_config.json

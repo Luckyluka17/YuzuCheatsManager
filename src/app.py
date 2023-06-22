@@ -22,7 +22,7 @@ launch_window = tk.Tk()
 start_time = time.time()
 
 # Version actuelle du logiciel
-version = 1.8
+version = 1.9
 
 
 # Téléchargement des fichiers requis (fichiers temporaires)
@@ -95,7 +95,7 @@ default_settings = {
     "cheats_names": {},
     "dev_mode": False,
     "servers": {
-        "Switch Cheats": "https://github.com/ibnux/switch-cheat/tree/master/sxos/titles/"
+        "Switch Cheats": "https://github.com/ibnux/switch-cheat/tree/master/atmosphere/titles/"
     },
     "actual_server": 1,
 }
@@ -111,7 +111,7 @@ cheats_names = {}
 dev_mode = tk.BooleanVar()
 toggle_provider = tk.IntVar()
 
-def update():
+def update_ycm():
     launch_window.destroy()
     wget.download("https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManager/main/src/updater.bat", "updater.bat")
     os.startfile("updater.bat")
@@ -208,7 +208,7 @@ for plugin in os.listdir("Plugins"):
 
 
 # Vérification et mise en place des serveurs customs
-if not settings["servers"].get("Switch Cheats") == "https://github.com/ibnux/switch-cheat/tree/master/sxos/titles/":
+if not settings["servers"].get("Switch Cheats") == "https://github.com/ibnux/switch-cheat/tree/master/atmosphere/titles/":
     showerror("Erreur", "Une erreur est survenue lors de la vérification des serveurs. Vérifiez votre fichier des paramètres.")
     sys.exit()
 else:
@@ -220,7 +220,7 @@ with requests.get("https://raw.githubusercontent.com/Luckyluka17/YuzuCheatsManag
     data_app = json.loads(r.text)
 
 if data_app["latest-version"] > version and verify_updates.get() == True:
-    update()
+    update_ycm()
     
 if data_app["informations"] != "":
     window.withdraw()
@@ -275,6 +275,7 @@ if os.path.exists(f"{settings['yuzu_folder']}\\load\\"):
             if game in games_data:
                 games[games.index(game)] = games_data[game].replace("™", "").replace("+", "avec").upper()
                 games_list[games_data[game].replace("™", "").replace("+", "avec").upper()] = game
+                print("Jeu trouvé : " + game)
             
         print(games_list)
     except:
@@ -598,7 +599,7 @@ for plugin in plugins.keys():
 plugins_menu.add_separator()
 plugins_menu.add_command(label=data_language["head_menu"]["plugins_menu"]["1"], command=lambda: web.open("https://www.yuzucheatsmanager.tk/plugins.html#"))
 # Menu YuzuCheatsManager
-ycm_menu.add_command(label=data_language["head_menu"]["ycm_menu"]["1"], command=update)
+ycm_menu.add_command(label=data_language["head_menu"]["ycm_menu"]["1"], command=update_ycm)
 ycm_menu.add_command(label=data_language["head_menu"]["ycm_menu"]["3"], state="disabled")
 # Menu Aide
 help_menu.add_command(label=data_language["head_menu"]["help_menu"]["2"], command=lambda: web.open("https://discord.gg/KvjkS3P3Gh"))
@@ -616,6 +617,8 @@ provider_menu.add_command(label="de problème.", state="disabled")
 for i in range(len(games)):
     if '' in games:
         games.remove('')
+
+games.sort()
 
 ttk.Label(
     window,
