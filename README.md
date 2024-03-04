@@ -7,6 +7,9 @@
 </div>
 <br>
 
+> [!WARNING]
+> ### L'émulateur Yuzu n'est plus disponible. Ce dépôt est désormais archivé. Vous pouvez toujours télécharger le logiciel et l'utiliser si vous possédez un build de Yuzu.
+
 YuzuCheatsManager vous permet d'installer, de gérer et de supprimer des cheats de manière automatique sur Yuzu (remplacé par EmuKit : [en savoir plus...](https://github.com/EmuKit23/YuzuCheatsManager/tree/main#fin-de-yuzucheatsmanager--information)). 
 
 **⚠️ Ce logiciel est expérimental, il n'est pas impossible que vous trouviez des bugs. Si c'est le cas, merci de contacter son créateur par le biais de [Discord](https://discord.gg/KvjkS3P3Gh).**
